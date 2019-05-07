@@ -1,0 +1,369 @@
+﻿@model panelim.Models.tblFormIcerik
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var elementtipi = new SelectList(
+new List<SelectListItem>
+{
+    new SelectListItem {Text = "Email", Value = "Email"},
+    new SelectListItem {Text = "Password", Value = "Password"},
+    new SelectListItem {Text = "TextArea", Value = "TextArea"}
+}, "Value", "Text");
+}
+
+<div class="panel-heading">
+    <h3> Formlar <i class="fa fa-angle-double-right"> </i> Form Düzenle </h3>
+</div>
+
+<div class="panel-body">
+
+    @using (Html.BeginForm("Edit", "tblForm", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("id")
+        <div class="form-horizontal">
+            <div>
+                @Html.ActionLink("Geri Dön", "Index")
+            </div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.Label("Form Adı", htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-0" })
+
+                <div class="col-md-3">
+
+
+                    @Html.Editor("FormAdi", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessage("FormAdi", "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" value="Güncelle" class="btn btn-primary" />
+                </div>
+
+            </div>
+
+
+        </div>
+    }
+
+    @using (Html.BeginForm("Create", "tblFormIcerik", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-horizontal">
+            <hr />
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.elementadi, htmlAttributes: new { @class = "control-label col-md-2", autocomplete = "off" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.elementadi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.elementadi, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2">
+                    <button type="submit"  class="btn btn-warning" >Ekle</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.elementtipi, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.elementtipi, elementtipi, "Seçiniz", new { id = "gtipi", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.elementtipi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.sira, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.sira, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.sira, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.aktiflik, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="checkbox">
+                        <style>
+                            #aktiflik {
+                                width: 65px;
+                                height: 23px;
+                            }
+                        </style>
+                        @Html.EditorFor(model => model.aktiflik, new { @class = "headaktif" })
+                        @Html.ValidationMessageFor(model => model.aktiflik, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="container">
+                <table id="tblFormIcerik" class="table table-bordered" style="background-color:white; ">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.elementadi)
+                            </th>
+                            <th>@Html.DisplayNameFor(model => model.elementtipi)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.Form)
+                        {
+                            <tr>
+                                <td>
+                                    <label class="control-label col-md-2">@item.elementadi</label>
+                                </td>
+                                <td>
+                                    @if (item.elementtipi == "Email")
+                                    {
+                                        if (item.aktiflik == false)
+                                        {
+                                            <div class="form-group">
+
+                                                <div class="col-md-4">
+                                                    @Html.TextBox("text", "", new { @class = "form-control", placeholder = "email", type = "email" })
+                                                </div>
+
+                                            </div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+
+                                                <div class="col-md-4">
+                                                    @Html.TextBox("text", "", new { @class = "form-control", placeholder = "email", type = "email", required = "required" })
+                                                </div>
+
+                                            </div>
+                                        }
+
+                                    }
+                                    else if (item.elementtipi == "TextArea")
+                                    {
+                                        if (item.aktiflik == false)
+                                        {
+                                            <div class="form-group">
+
+                                                <div class="col-md-4">
+                                                    @Html.TextArea("text", "", new { @class = "form-control" })
+                                                </div>
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+
+                                                <div class="col-md-4">
+                                                    @Html.TextArea("text", "", new { @class = "form-control", required = "required" })
+                                                </div>
+
+                                            </div>
+                                        }
+
+                                    }
+                                    else if (item.elementtipi == "Password")
+                                    {
+                                        if (item.aktiflik == false)
+                                        {
+                                            <div class="form-group">
+
+                                                <div class="col-md-4">
+                                                    @Html.TextBox("text", "", new { @class = "form-control", placeholder = "Password", type = "password", required = "required" })
+                                                </div>
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+
+                                                <div class="col-md-4">
+                                                    @Html.TextBox("text", "", new { @class = "form-control", placeholder = "Password", type = "password" })
+                                                </div>
+
+                                            </div>
+                                        }
+
+
+                                    }
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-secondary float-left guncelleme" data="@item.Id" data-toggle="modal" data-target="#guncelle">
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </button>  | |
+                                    <a class="btn btn-warning btnFormIcerik" data-id="@item.Id"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="modal fade" id="guncelle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="form-group">
+                                
+                                        @Html.LabelFor(model => model.elementadi, htmlAttributes: new { @class = "control-label col-md-1" })
+                                        <div class="col-md-3">
+                                            @Html.EditorFor(model => model.elementadi, new { htmlAttributes = new { @class = "form-control adi" } })
+                                            @Html.ValidationMessageFor(model => model.elementadi, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-2">
+                                           
+                                         <input type="button" class="btn btn-danger" id="guncel" value="Güncelle" data-id="22" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.elementtipi, htmlAttributes: new { @class = "control-label col-md-1" })
+                                        <div class="col-md-3">
+                                            @Html.DropDownListFor(model => model.elementtipi, elementtipi, "Seçiniz", new { id = "gtipi", @class = "form-control tipi" })
+                                            @Html.ValidationMessageFor(model => model.elementtipi, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.sira, htmlAttributes: new { @class = "control-label col-md-1" })
+                                        <div class="col-md-3">
+                                            @Html.EditorFor(model => model.sira, new { htmlAttributes = new { @class = "form-control sirasi" } })
+                                            @Html.ValidationMessageFor(model => model.sira, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.aktiflik, htmlAttributes: new { @class = "control-label col-md-1" })
+                                        <div class="col-md-3">
+                                            <div class="checkbox">
+                                                <style>
+                                                    #formaktif {
+                                                        width: 65px;
+                                                        height: 23px;
+                                                    }
+                                                </style>
+                                                <input type="checkbox" name="formaktif" id="formaktif" value="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    }
+</div>
+@section scripts{
+    <script>
+    $(function () {
+        $("#tblFormIcerik").DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+            }
+        })
+    });
+    $(function () {
+    $("#tblFormIcerik").on("click", ".btnFormIcerik", function () {
+        var btn = $(this);
+        bootbox.confirm("Elementi Silmek İstediğinizden Emin Misiniz ?", function (result) {
+            if (result) {
+                var id = btn.data("id");
+                $.ajax({
+                    type: "GET",
+                    url: "/tblFormIcerik/Delete/" + id,
+                    success: function () {
+                        window.location.reload(true);
+
+                    }
+                });
+            }
+        })
+    });
+
+
+        });
+    $(function () {
+            $(".guncelleme").on("click", function () {
+                var btn = $(this);
+                $(function (result) {
+                    if (result) {
+                        var id = btn.attr("data")
+
+
+
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({ "id": id }),
+                            url: "/tblFormIcerik/Guncelleme",
+                            success: function (d) {
+                              
+                                
+                                $(".adi").val(d.elementadi);
+                                $(".tipi").children("option").filter(":selected").text(d.elementtipi);
+                                $(".sirasi").val(d.sira);
+                                $("#formaktif").val(d.aktiflik);
+                                if (d.aktiflik == true) {
+
+                                    $("input[id='formaktif']").prop("checked", true);
+                                
+                                }
+                                else {
+
+                                    $("input[id='formaktif']").prop("checked", false);
+                                }
+                                $("input[id='guncel']").attr("data-id", d.Id).next().attr("data-id", id);
+
+                            },
+                            error: function (xhr) {
+                                alert(xhr.statusText)
+                            }
+                        });
+                    }
+                });
+
+
+            });
+
+        });
+        $(function () {
+            $("#guncel").click(function () {
+                var id = $("input[id='guncel']").attr("data-id");
+                var elementadi = $(".adi").val();
+                var elementtipi = $(".tipi").children("option").filter(":selected").text();
+                var sirasi = $(".sirasi").val();
+                var akt = $("input[id='formaktif']").prop("checked");
+                        $.ajax({
+                            type: "POST", 
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({ "id": id, "elementadi": elementadi, "elementtipi": elementtipi, "sira": sirasi, "akt": akt }),
+                            url: "/tblFormIcerik/GuncelKayit",
+                            success: function (d) {
+                                window.location.reload(true);
+                            },
+                            error: function (xhr) {
+                                alert(xhr.statusText)
+                            }
+                        });
+        
+
+            });
+
+        });
+    </script>
+}

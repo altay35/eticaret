@@ -1,0 +1,170 @@
+﻿@model panelim.Models.Sayfalar
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+<div class="panel-heading">
+    <h3> Sayfalar <i class="fa fa-angle-double-right"> </i> Sayfa Düzenle </h3>
+</div>
+
+<div class="panel-body">
+    @using (Html.BeginForm("Edit", "Sayfalar", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+ 
+        <div class="form-horizontal">
+            <div>
+                @Html.ActionLink("Geri Dön", "Index")
+            </div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SayfaAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.SayfaAdi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SayfaAdi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Dış Link", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.TextBox("Dış Link", "", new { @class = "form-control", placeholder = "Dış Link" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Icerik, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Icerik, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Icerik, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @if (@Model.headimage != null)
+            {
+                <div class="form-group" id="tblResim">
+                    @Html.Label("Yüklediğiniz Resim", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        <img src="@Model.headimage" width="250" height="150" />
+
+                        @Html.ActionLink("Sil", "ResimSil", new { id = Model.Id, }, new { @class = "btn btn-primary" })
+
+
+
+                    </div>
+                </div>
+            }
+            <div class="form-group">
+                @Html.LabelFor(model => model.headimage, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    <input type="file" name="headimage" id="headimage" accept=".jpg,.png,.JPEG,.jpeg" class="form-control" onChange="validate(this.value)" />
+
+                    @Html.ValidationMessageFor(model => model.headimage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.headaktif, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    <div class="checkbox">
+                        <style>
+                            #headaktif {
+                                width: 65px;
+                                height: 23px;
+                            }
+                        </style>
+                        @Html.EditorFor(model => model.headaktif)
+                        @Html.ValidationMessageFor(model => model.headaktif, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.sayfaaktif, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    <div class="checkbox">
+                        <style>
+                            #sayfaaktif {
+                                width: 65px;
+                                height: 23px;
+                            }
+                        </style>
+                        @Html.EditorFor(model => model.sayfaaktif, new { @class = "headaktif" })
+                        @Html.ValidationMessageFor(model => model.sayfaaktif, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.sirano, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.sirano, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.sirano, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.GaleriId, "Galeri", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.DropDownList("GaleriId", null, "Galeri Seçiniz...", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.GaleriId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FormId, "FormId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    <div class="">
+                        @Html.DropDownList("FormId", (MultiSelectList)ViewBag.FormId, htmlAttributes: new { id = "multiple-checkboxes", @class = "form-control", multiple = "multiple" })
+                        @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Kaydet" class="btn btn-primary  " id="gonder" data-id="@ViewBag.sayfaid" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#multiple-checkboxes').multiselect({
+                includeSelectAllOption: true,
+            });
+            $(".multiselect-selected-text").html("Seçilmedi");
+          
+        });
+        $(document).ready(function () {
+            var id = $("#gonder").attr("data-id");
+            //var deger = $("#multiple-checkboxes").find("input").val();
+            //alert(deger)
+            $.ajax({
+                type: "POST",
+                url: "/Sayfalar/form",
+                data: { "id": id },
+                success: function (d) {
+                    
+                    
+
+                }
+            });
+            
+        });
+        function validate(file) {
+            var ext = file.split(".");
+            ext = ext[ext.length - 1].toLowerCase();
+            var arrayExtensions = ["jpg", "jpeg", "png", "JPEG"];
+
+            if (arrayExtensions.lastIndexOf(ext) == -1) {
+                bootbox.alert("Lütfen sadece 'jpg', jpeg', 'png', 'JPEG' uzantılı dosyalar yükleyiniz.");
+                $("#headimage").val("");
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+}

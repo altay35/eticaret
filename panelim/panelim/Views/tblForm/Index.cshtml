@@ -1,0 +1,72 @@
+﻿@model IEnumerable<panelim.Models.tblForm>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel-heading">
+    <h3>Formlar</h3>
+</div>
+<div class="panel-body">
+
+    <p>
+        @Html.ActionLink("Yeni Form", "Create", null, new { @class = "btn btn-success" })
+    </p>
+    <hr />
+    <table id="tblForm" class="table table-bordered" style="background-color:white; ">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FormAdi)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FormAdi)
+                    </td>
+                    <td>
+                        <a class="btn btn-success" id="edit" href="~/tblForm/Edit/@item.id">Düzenle</a>  | |
+                        <a class="btn btn-warning btnFormSil" data-id="@item.id"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section scripts{
+    <script>
+    $(function () {
+        $("#tblForm").DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+            }
+        })
+    });
+    $(function () {
+    $("#tblForm").on("click", ".btnFormSil", function () {
+        var btn = $(this);
+        bootbox.confirm("Formu Silmek İstediğinizden Emin Misiniz ?", function (result) {
+            if (result) {
+                var id = btn.data("id");
+                $.ajax({
+                    type: "GET",
+                    url: "/tblForm/Delete/" + id,
+                    success: function () {
+                        window.location.reload(true);
+
+                    }
+                });
+            }
+        })
+    });
+
+
+});
+    </script>
+}

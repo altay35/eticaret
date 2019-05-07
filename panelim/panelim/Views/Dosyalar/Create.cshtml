@@ -1,0 +1,57 @@
+﻿@model panelim.Models.tblDosya
+
+@{
+                /**/
+
+                ViewBag.Title = "Create";
+                Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel-heading">
+    <h3> Dosyalar <i class="fa fa-angle-double-right"> </i> Yeni Dosya Ekle </h3>
+</div>
+
+<div class="panel-body">
+    @using (Html.BeginForm("Create", "Dosyalar", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div>
+                @Html.ActionLink("Geri Dön", "Index")
+            </div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DosyaEkle, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    <input type="file" name="yuklenecekdosya" id="yuklenecekdosya" accept=".jpg,.png,.gif,.JPEG,.jpeg" class="form-control" onChange="validate(this.value) " required/>
+                    @Html.ValidationMessageFor(model => model.DosyaEkle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Kaydet" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+@section scripts{
+<script>
+    function validate(file) {
+        var ext = file.split(".");
+        ext = ext[ext.length - 1].toLowerCase();
+        var arrayExtensions = ["jpg", "zip", "png", "JPEG", "doc", "xlsx", "pdf"];
+
+        if (arrayExtensions.lastIndexOf(ext) == -1) {
+            bootbox.alert("Lütfen sadece 'jpg', 'zip', 'png', 'JPEG', 'doc', 'xlsx', 'pdf' uzantılı dosyalar yükleyiniz.");
+            $("#yuklenecekdosya").val("");
+        }
+    }
+</script>    
+}

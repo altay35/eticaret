@@ -1,0 +1,279 @@
+﻿@model  IEnumerable<panelim.Models.tblAltMenu>
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<link href="~/Content/css/jquery-ui.css" rel="stylesheet" />
+<style>
+    #sortable1, #sortable2 {
+        border: 1px solid #eee;
+        width: 517px;
+        min-height: 40px;
+        list-style-type: none;
+        margin: 0;
+        padding: 5px 0 0 0;
+        float: left;
+        margin-right: 10px;
+    }
+</style>
+<div class="panel-heading">
+    <h3> Menüler <i class="fa fa-angle-double-right"> </i> Düzenle </h3>
+</div>
+
+<div class="panel-body">
+    @using (Html.BeginForm("Edit", "Menu", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal" id="ss">
+            <div>
+                @Html.ActionLink("Geri Dön", "Index")
+            </div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="form-group">
+                @Html.Label("Menü Adı", htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-0" })
+
+                <div class="col-md-4 form-group">
+                    @if (Session["menuad"] == null)
+                    {
+                        @Html.TextBox("text", @genelIslem.menuIddenAd(Convert.ToInt32(Session["menuid"])), new { @class = "form-control text-box single-line" } )
+                      
+                    }
+                    else
+                    {
+                        @Html.TextBox("text", Session["menuad"], new { htmlAttributes = new { @class = "form-control text-box single-line" } })
+                    }
+
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-2">
+                            <button type="button" class="btnKayitSil" value="Kaydet" onclick="return kontrol()">Kaydet</button>
+                            @*<input type="submit" value="Post Et" id="btnPost" onclick="return kontrol()" />*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="row">
+
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading clearfix">
+                                        <h5 class="pull-left">Menüm</h5>
+
+                                    </div>
+
+                                    <ul id="sortable1" class="connectedSortable sortableLists list-group">
+
+                                        @foreach (var menuler in Model)
+                                        {
+
+
+                                            <li class="list-group-item ui-state-default">
+
+                                                <div style="margin-bottom:5px;" class="menuDivler" data="@ViewBag.menu" rel="@menuler.SayfaId">
+                                                    <i class="fa fa-cloud-upload">
+                                                    </i>&nbsp;
+                                                    <span class="txt">
+                                                        @genelIslem.sayfaIddenAd(@menuler.SayfaId)
+
+
+                                                    </span>
+                                                    <div class="btn-group pull-right"><a class="btn btn-default btn-xs btnUp btnMove clickable" href="#"><i class="glyphicon glyphicon-chevron-up clickable"></i></a><a class="btn btn-default btn-xs btnDown btnMove clickable" href="#"><i class="glyphicon glyphicon-chevron-down clickable"></i></a><a class="btn btn-default btn-xs btnIn btnMove clickable" href="#"><i class="glyphicon glyphicon-export clickable"></i></a><a class="btn btn-default btn-xs btnOut btnMove clickable" href="#" style="display: none;"><i class="glyphicon glyphicon-save  clickable"></i></a><a class="btn btn-danger btn-xs btnRemove clickable" href="#"><i class="glyphicon glyphicon-remove clickable"></i></a></div>
+                                                </div>
+
+                                                @foreach (var item in genelIslem.altmenuler(menuler.Id))
+                                                {
+
+                                                    <ul style="display:block;">
+                                                        <li class="list-group-item ui-state-default">
+                                                            <div style="margin-bottom:5px;" class="menuDivler" data="@ViewBag.menu" rel="@item.SayfaId">
+                                                                <i class="fa fa-cloud-upload">
+                                                                </i>&nbsp;
+                                                                <span class="txt">
+                                                                    @genelIslem.sayfaIddenAd(item.SayfaId)
+
+
+                                                                </span>
+                                                                <div class="btn-group pull-right"><a class="btn btn-default btn-xs btnUp btnMove clickable" href="#"><i class="glyphicon glyphicon-chevron-up clickable"></i></a><a class="btn btn-default btn-xs btnDown btnMove clickable" href="#"><i class="glyphicon glyphicon-chevron-down clickable"></i></a><a class="btn btn-default btn-xs btnIn btnMove clickable" href="#"><i class="glyphicon glyphicon-export clickable"></i></a><a class="btn btn-default btn-xs btnOut btnMove clickable" href="#" style="display: none;"><i class="glyphicon glyphicon-save  clickable"></i></a><a class="btn btn-danger btn-xs btnRemove clickable" href="#"><i class="glyphicon glyphicon-remove clickable"></i></a></div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+
+                                                }
+
+                                            </li>
+
+                                        }
+
+                                    </ul>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading clearfix">
+                                        <h5 class="pull-left">Sayfalar</h5>
+
+                                    </div>
+                                    <ul id="sortable2" class="connectedSortable sortableLists list-group">
+
+                                        @foreach (var sayfa in (SelectList)ViewBag.sayfa)
+                                        {
+
+
+                                            <li class="list-group-item sortableListsOpen ui-state-highlight ">
+
+                                                <div style="margin-bottom:5px;" class="menuDivler" data="@ViewBag.menu" rel="@sayfa.Value">
+                                                    <i class="fa fa-cloud-upload">
+                                                    </i>&nbsp;
+                                                    <span class="txt">
+                                                        @sayfa.Text
+
+
+                                                    </span>
+                                                    <div class="btn-group pull-right"><a class="btn btn-default btn-xs btnUp btnMove clickable" href="#"><i class="glyphicon glyphicon-chevron-up clickable"></i></a><a class="btn btn-default btn-xs btnDown btnMove clickable" href="#"><i class="glyphicon glyphicon-chevron-down clickable"></i></a><a class="btn btn-default btn-xs btnIn btnMove clickable" href="#"><i class="glyphicon glyphicon-export clickable"></i></a><a class="btn btn-default btn-xs btnOut btnMove clickable" href="#" style="display: none;"><i class="glyphicon glyphicon-save  clickable"></i></a><a class="btn btn-danger btn-xs btnRemove clickable" href="#"><i class="glyphicon glyphicon-remove clickable"></i></a></div>
+                                                </div>
+
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+    }
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery-menu-editor.js"></script>
+    <script src="~/Scripts/bootstrap-iconpicker.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            MenuEditor('sortable1');
+            $(function () {
+                $("#sortable1, #sortable2").sortable({
+                    connectWith: ".connectedSortable"
+                }).disableSelection();
+            });
+
+        })
+
+
+
+
+        function kontrol() {
+
+            $.when(sil()).done(setTimeout(kaydet, 500))
+
+        }
+
+        function sil() {
+            var veri = "";
+            $("#sortable1 > li").each(function () {
+                veri = $(this).find("div").attr("data");
+
+            });
+            $.ajax({
+                type: "Get",
+                url: "/tblAltMenu/Delete/" + veri
+            });
+
+        }
+
+        function kaydet() {
+            var veriler = "";
+            var text = $("#text").val();
+
+            $("#sortable1 > li").each(function () {
+
+                veriler += $(this).find("div").attr("data") + '-' + $(this).find("div").attr("rel") + '-0;';
+                var ustid = $(this).find("div").attr("rel");
+
+                if ($(this).find("ul").length > 0) {
+
+                    if ($(this).find("li").length > 0) {
+                        $(this).find("li").each(function () {
+                            veriler += $(this).find("div").attr("data") + '-' + $(this).find("div").attr("rel") + '-' + ustid + ";";
+
+                        });
+
+                    } else {
+                        veriler += ';'
+                    }
+
+
+                }
+
+
+            });
+            $.ajax({
+                url: "/tblAltMenu/altMenuKaydet",
+                data: { "veriler": veriler, "menuad": text },
+                type: "post",
+                dataType: "json",
+                success: function (sonuc) {
+                    $("#text").html(sonuc);
+                    bootbox.alert("Kayıt Başarılı");
+                },
+                error: function (xhr) {
+                    alert("kaydetme hatası");
+                }
+            })
+        }
+    </script>
+    <script>
+        jQuery(document).ready(function () {
+
+            var iconPickerOptions = { searchText: 'Buscar...', labelHeader: '{0} de {1} Pags.' };
+            //sortable list options
+            var sortableListOptions = {
+                placeholderCss: { 'background-color': 'cyan' }
+            };
+
+            var editor = new MenuEditor('myEditor', { listOptions: sortableListOptions, iconPicker: iconPickerOptions, labelEdit: 'Edit' });
+            editor.setForm($('#frmEdit'));
+            editor.setUpdateButton($('#btnUpdate'));
+
+            //$('#btnReload').on('click', function () {
+            //    editor.setData(strjson);
+            //});
+
+            $('#btnOut').on('click', function () {
+                var str = editor.getString();
+                $("#out").text(str);
+            });
+
+            $("#btnUpdate").click(function () {
+                editor.update();
+            });
+
+            $('#btnAdd').click(function () {
+                editor.add();
+            });
+        });
+    </script>
+
+}

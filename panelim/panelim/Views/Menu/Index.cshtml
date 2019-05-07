@@ -1,0 +1,75 @@
+﻿@model IEnumerable<panelim.Models.tblMenu>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel-heading">
+    <h3>MENÜLER</h3>
+</div>
+<div class="panel-body">
+
+    <p>
+        @Html.ActionLink("Yeni Menü", "Create", null, new { @class = "btn btn-success" })
+    </p>
+    <hr />
+    <table id="tblMenu" class="table table-bordered" style="background-color:white; ">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenuAd)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MenuAd)
+                    </td>
+                    <td>
+                        <a class="btn btn-success" id="edit" href="~/Menu/Edit/@item.Id" data-id="@item.Id">Düzenle</a>  |
+                        <a class="btn btn-warning btnMenuSil" data-id="@item.Id"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $("#tblMenu").DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+                }
+            })
+        });
+        $(function () {
+            $("#tblMenu").on("click", ".btnMenuSil", function () {
+                var btn = $(this);
+                bootbox.confirm("Menüyü Silmek İstediğinizden Emin Misiniz ?", function (result) {
+                    if (result) {
+                        var id = btn.data("id");
+
+                        $.ajax({
+                            type: "GET",
+                            url: "/Menu/Delete/" + id,
+                            success: function () {
+                                window.location.reload();
+
+                            }
+                        });
+                    }
+                })
+            });
+
+        });
+    </script>
+}
+

@@ -1,0 +1,184 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Admin Paneli</title>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/metisMenu.min.css" rel="stylesheet" />
+    <link href="~/Content/css/sb-admin-2.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="icon" href="~/Content/fonts/favicon.ico" />
+    <link href="~/Content/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">ÖĞRENCİM.COM</a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="/Kullanici"><i class="fa fa-user fa-fw"></i>Kullanıcı Profili</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-gear fa-fw"></i> Ayarlar</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="~/Security/Logout"><i class="fa fa-sign-out fa-fw"></i> Çıkış</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+
+                                <span style="color:firebrick ;    font-size: 16px;">
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="/Home/Index"><i class="fa fa-edit fa-fw"></i> Admin Özet</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Genel Ayarlar<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/tblLogo/Create">Logo Tasarımı</a>
+                                </li>
+
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Sayfalar<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/Sayfalar/Index">Sayfa Listesi</a>
+                                </li>
+                                <li>
+                                    <a href="/Sayfalar/Create">Sayfa Ekle</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Dosyalar<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/Dosyalar/Index">Dosya Listesi</a>
+                                </li>
+                                <li>
+                                    <a href="/Dosyalar/Create">Dosya Ekle</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Menüler<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/Menu/Index">Menü Listesi</a>
+                                </li>
+                                <li>
+                                    <a href="/Menu/Create">Menü Ekle</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-picture-o" aria-hidden="true"></i> Galeriler<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/tblGaleri/Index">Galeri Listesi</a>
+                                </li>
+                                <li>
+                                    <a href="/tblGaleri/Create">Galeri Ekle</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-picture-o" aria-hidden="true"></i> Formlar<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/tblForm/Index">Formlarım</a>
+                                </li>
+                                <li>
+                                    <a href="/tblForm/Create">Form Ekle</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+
+                    @RenderBody()
+
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/metisMenu.min.js"></script>
+    <script src="~/Scripts/sb-admin-2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/bootbox.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+    @RenderSection("scripts", false)
+    <script>
+
+    $(function () {
+        var mesaj = '@Html.Raw(TempData["genelMesaj"])';
+        if (mesaj != "") {
+            bootbox.alert(mesaj);
+        }
+    })
+    </script>
+</body>
+</html>

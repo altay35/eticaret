@@ -1,0 +1,91 @@
+﻿@model IEnumerable<panelim.Models.tblGaleri>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel-heading">
+    <h3>Galeriler</h3>
+</div>
+<div class="panel-body">
+
+    <p>
+        @Html.ActionLink("Yeni Galeri", "Create", null, new { @class = "btn btn-success" })
+    </p>
+    <hr />
+    <table id="tblGaleri" class="table table-bordered" style="background-color:white; ">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.g_adi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.g_tipi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.aktif)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.sira)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.g_adi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.g_tipi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.aktif)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sira)
+                    </td>
+                    <td>
+                        <a class="btn btn-success" id="editle" href="~/tblGaleri/Edit/@item.Id" data-id="@item.Id">Düzenle</a>  |
+                        <a class="btn btn-warning btnGaleriSil" data-id="@item.Id"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section scripts{
+<script>
+    $(function () {
+        $("#tblGaleri").DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+            }
+        })
+    });
+    $(function () {
+    $("#tblGaleri").on("click", ".btnGaleriSil", function () {
+        var btn = $(this);
+        bootbox.confirm("Galeriyi Silmek İstediğinizden Emin Misiniz ?", function (result) {
+            if (result) {
+                var id = btn.data("id");
+                $.ajax({
+                    type: "GET",
+                    url: "/tblGaleri/Delete/" + id,
+                    success: function () {
+                        window.location.reload(true);
+                      
+                    }
+                });
+            }
+        })
+    });
+
+
+});
+    </script>    
+}
+

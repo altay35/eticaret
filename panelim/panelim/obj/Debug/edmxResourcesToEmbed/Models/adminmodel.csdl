@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SiteDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Kullanici">
+    <Key>
+      <PropertyRef Name="KullaniciId" />
+    </Key>
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Parola" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sayfaform">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FormId" Type="Int32" Nullable="false" />
+    <Property Name="SayfaId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Sayfalar" Relationship="Self.FK_sayfaform_Sayfalar" FromRole="sayfaform" ToRole="Sayfalar" />
+    <NavigationProperty Name="tblForm" Relationship="Self.FK_sayfaform_tblForm" FromRole="sayfaform" ToRole="tblForm" />
+  </EntityType>
+  <EntityType Name="Sayfalar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SayfaAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Icerik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="headimage" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="headaktif" Type="Boolean" Nullable="false" />
+    <Property Name="sayfaaktif" Type="Boolean" Nullable="false" />
+    <Property Name="sirano" Type="Int32" Nullable="false" />
+    <Property Name="FormId" Type="Int32" />
+    <Property Name="GaleriId" Type="Int32" />
+    <NavigationProperty Name="sayfaform" Relationship="Self.FK_sayfaform_Sayfalar" FromRole="Sayfalar" ToRole="sayfaform" />
+    <NavigationProperty Name="tblForm" Relationship="Self.FK_Sayfalar_tblForm" FromRole="Sayfalar" ToRole="tblForm" />
+    <NavigationProperty Name="tblGaleri" Relationship="Self.FK_Sayfalar_tblGaleri" FromRole="Sayfalar" ToRole="tblGaleri" />
+    <NavigationProperty Name="tblAltMenu" Relationship="Self.FK_tblAltMenu_Sayfalar" FromRole="Sayfalar" ToRole="tblAltMenu" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblAltMenu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuId" Type="Int32" Nullable="false" />
+    <Property Name="SayfaId" Type="Int32" Nullable="false" />
+    <Property Name="UstId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Sayfalar" Relationship="Self.FK_tblAltMenu_Sayfalar" FromRole="tblAltMenu" ToRole="Sayfalar" />
+    <NavigationProperty Name="tblMenu" Relationship="Self.FK_tblAltMenu_tblMenu" FromRole="tblAltMenu" ToRole="tblMenu" />
+  </EntityType>
+  <EntityType Name="tblDosya">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DosyaAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DosyaEkle" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblForm">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FormAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sira" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="sayfaform" Relationship="Self.FK_sayfaform_tblForm" FromRole="tblForm" ToRole="sayfaform" />
+    <NavigationProperty Name="Sayfalar" Relationship="Self.FK_Sayfalar_tblForm" FromRole="tblForm" ToRole="Sayfalar" />
+    <NavigationProperty Name="tblFormIcerik" Relationship="Self.FK_tblFormIcerik_tblForm" FromRole="tblForm" ToRole="tblFormIcerik" />
+  </EntityType>
+  <EntityType Name="tblFormIcerik">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FormId" Type="Int32" Nullable="false" />
+    <Property Name="elementadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="elementtipi" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sira" Type="Int32" Nullable="false" />
+    <Property Name="aktiflik" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblForm" Relationship="Self.FK_tblFormIcerik_tblForm" FromRole="tblFormIcerik" ToRole="tblForm" />
+  </EntityType>
+  <EntityType Name="tblGaleri">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="g_adi" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="g_tipi" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="aktif" Type="Boolean" Nullable="false" />
+    <Property Name="sira" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Sayfalar" Relationship="Self.FK_Sayfalar_tblGaleri" FromRole="tblGaleri" ToRole="Sayfalar" />
+    <NavigationProperty Name="tblGaleriResim" Relationship="Self.FK_tblGaleriResim_tblGaleri" FromRole="tblGaleri" ToRole="tblGaleriResim" />
+  </EntityType>
+  <EntityType Name="tblGaleriResim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Galeri_Id" Type="Int32" Nullable="false" />
+    <Property Name="kresim" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="bresim" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="sira" Type="Int32" Nullable="false" />
+    <Property Name="aciklama" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblGaleri" Relationship="Self.FK_tblGaleriResim_tblGaleri" FromRole="tblGaleriResim" ToRole="tblGaleri" />
+  </EntityType>
+  <EntityType Name="tblLogo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LogoIcerik" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tblMenu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tblAltMenu" Relationship="Self.FK_tblAltMenu_tblMenu" FromRole="tblMenu" ToRole="tblAltMenu" />
+  </EntityType>
+  <Association Name="FK_sayfaform_Sayfalar">
+    <End Role="Sayfalar" Type="Self.Sayfalar" Multiplicity="1" />
+    <End Role="sayfaform" Type="Self.sayfaform" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sayfalar">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="sayfaform">
+        <PropertyRef Name="SayfaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sayfaform_tblForm">
+    <End Role="tblForm" Type="Self.tblForm" Multiplicity="1" />
+    <End Role="sayfaform" Type="Self.sayfaform" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblForm">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="sayfaform">
+        <PropertyRef Name="FormId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sayfalar_tblForm">
+    <End Role="tblForm" Type="Self.tblForm" Multiplicity="0..1" />
+    <End Role="Sayfalar" Type="Self.Sayfalar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblForm">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Sayfalar">
+        <PropertyRef Name="FormId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sayfalar_tblGaleri">
+    <End Role="tblGaleri" Type="Self.tblGaleri" Multiplicity="0..1" />
+    <End Role="Sayfalar" Type="Self.Sayfalar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGaleri">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sayfalar">
+        <PropertyRef Name="GaleriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblAltMenu_Sayfalar">
+    <End Role="Sayfalar" Type="Self.Sayfalar" Multiplicity="1" />
+    <End Role="tblAltMenu" Type="Self.tblAltMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sayfalar">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblAltMenu">
+        <PropertyRef Name="SayfaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblAltMenu_tblMenu">
+    <End Role="tblMenu" Type="Self.tblMenu" Multiplicity="1" />
+    <End Role="tblAltMenu" Type="Self.tblAltMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMenu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblAltMenu">
+        <PropertyRef Name="MenuId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblFormIcerik_tblForm">
+    <End Role="tblForm" Type="Self.tblForm" Multiplicity="1" />
+    <End Role="tblFormIcerik" Type="Self.tblFormIcerik" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblForm">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblFormIcerik">
+        <PropertyRef Name="FormId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGaleriResim_tblGaleri">
+    <End Role="tblGaleri" Type="Self.tblGaleri" Multiplicity="1" />
+    <End Role="tblGaleriResim" Type="Self.tblGaleriResim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGaleri">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblGaleriResim">
+        <PropertyRef Name="Galeri_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SiteDbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Kullanici" EntityType="Self.Kullanici" />
+    <EntitySet Name="sayfaform" EntityType="Self.sayfaform" />
+    <EntitySet Name="Sayfalar" EntityType="Self.Sayfalar" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="tblAltMenu" EntityType="Self.tblAltMenu" />
+    <EntitySet Name="tblDosya" EntityType="Self.tblDosya" />
+    <EntitySet Name="tblForm" EntityType="Self.tblForm" />
+    <EntitySet Name="tblFormIcerik" EntityType="Self.tblFormIcerik" />
+    <EntitySet Name="tblGaleri" EntityType="Self.tblGaleri" />
+    <EntitySet Name="tblGaleriResim" EntityType="Self.tblGaleriResim" />
+    <EntitySet Name="tblLogo" EntityType="Self.tblLogo" />
+    <EntitySet Name="tblMenu" EntityType="Self.tblMenu" />
+    <AssociationSet Name="FK_sayfaform_Sayfalar" Association="Self.FK_sayfaform_Sayfalar">
+      <End Role="Sayfalar" EntitySet="Sayfalar" />
+      <End Role="sayfaform" EntitySet="sayfaform" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sayfaform_tblForm" Association="Self.FK_sayfaform_tblForm">
+      <End Role="tblForm" EntitySet="tblForm" />
+      <End Role="sayfaform" EntitySet="sayfaform" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sayfalar_tblForm" Association="Self.FK_Sayfalar_tblForm">
+      <End Role="tblForm" EntitySet="tblForm" />
+      <End Role="Sayfalar" EntitySet="Sayfalar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sayfalar_tblGaleri" Association="Self.FK_Sayfalar_tblGaleri">
+      <End Role="tblGaleri" EntitySet="tblGaleri" />
+      <End Role="Sayfalar" EntitySet="Sayfalar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblAltMenu_Sayfalar" Association="Self.FK_tblAltMenu_Sayfalar">
+      <End Role="Sayfalar" EntitySet="Sayfalar" />
+      <End Role="tblAltMenu" EntitySet="tblAltMenu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblAltMenu_tblMenu" Association="Self.FK_tblAltMenu_tblMenu">
+      <End Role="tblMenu" EntitySet="tblMenu" />
+      <End Role="tblAltMenu" EntitySet="tblAltMenu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblFormIcerik_tblForm" Association="Self.FK_tblFormIcerik_tblForm">
+      <End Role="tblForm" EntitySet="tblForm" />
+      <End Role="tblFormIcerik" EntitySet="tblFormIcerik" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGaleriResim_tblGaleri" Association="Self.FK_tblGaleriResim_tblGaleri">
+      <End Role="tblGaleri" EntitySet="tblGaleri" />
+      <End Role="tblGaleriResim" EntitySet="tblGaleriResim" />
+    </AssociationSet>
+    <EntitySet Name="yeni" EntityType="SiteDbModel.yeni" />
+  </EntityContainer>
+  <EntityType Name="yeni">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="soyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="mesaj" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

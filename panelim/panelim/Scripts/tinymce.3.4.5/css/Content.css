@@ -1,0 +1,13 @@
+﻿body, td, pre {
+    color: #000;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin: 8px;
+}
+    body.mceContentBody {
+        background: #FFF;
+    }
+
+.mceContentBody a {
+    color: red !important; /* FF requires a important here */
+}

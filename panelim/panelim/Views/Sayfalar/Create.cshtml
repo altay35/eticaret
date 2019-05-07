@@ -1,0 +1,115 @@
+﻿@model panelim.Models.Sayfalar
+
+@{
+    /**/
+
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel-heading">
+    <h3> SAYFALAR <i class="fa fa-angle-double-right"> </i> Yeni </h3>
+</div>
+
+
+<div class="panel-body">
+
+    @using (Html.BeginForm("Create", "Sayfalar", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+
+
+    <div class="form-horizontal">
+        <div>
+            @Html.ActionLink("Geri Dön", "Index")
+        </div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.SayfaAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.SayfaAdi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SayfaAdi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Icerik, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Icerik, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Icerik, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" id="formElem">
+            @Html.LabelFor(model => model.headimage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                <input type="file" name="headimage" id="headimage" accept=".jpg,.png,.JPEG,.jpeg" class="form-control" onChange="validate(this.value)" />
+
+                @Html.ValidationMessageFor(model => model.headimage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.headaktif, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                <div class="checkbox">
+                    <style>
+                        #headaktif {
+                            width: 65px;
+                            height: 23px;
+                        }
+                    </style>
+                    @Html.EditorFor(model => model.headaktif, new { @class = "headaktif" })
+                    @Html.ValidationMessageFor(model => model.headaktif, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.sayfaaktif, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                <div class="checkbox">
+                    <style>
+                        #sayfaaktif {
+                            width: 65px;
+                            height: 23px;
+                        }
+                    </style>
+                    @Html.EditorFor(model => model.sayfaaktif, new { @class = "headaktif" })
+                    @Html.ValidationMessageFor(model => model.sayfaaktif, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.sirano, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.sirano, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.sirano, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Kaydet" class="btn btn-success" id="bn-success" />
+            </div>
+        </div>
+    </div>
+    }
+
+</div>
+@section scripts{
+<script>
+    function validate(file) {
+        var ext = file.split(".");
+        ext = ext[ext.length - 1].toLowerCase();
+        var arrayExtensions = ["jpg", "jpeg", "png", "JPEG"];
+
+        if (arrayExtensions.lastIndexOf(ext) == -1) {
+            bootbox.alert("Lütfen sadece 'jpg', jpeg', 'png', 'JPEG' uzantılı dosyalar yükleyiniz.");
+            $("#headimage").val("");
+        }
+    }
+</script>    
+}

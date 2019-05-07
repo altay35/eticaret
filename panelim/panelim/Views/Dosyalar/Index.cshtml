@@ -1,0 +1,90 @@
+﻿@model IEnumerable<panelim.Models.tblDosya>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel-heading">
+    <h3>DOSYALAR</h3>
+</div>
+<div class="panel-body">
+
+    <p>
+        @Html.ActionLink("Yeni Dosya", "Create", null, new { @class = "btn btn-success" })
+    </p>
+    <hr />
+    <table id="tblDosya" class="table table-bordered" style="background-color:white; ">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DosyaAdi)
+                </th>
+                <th>
+                    @Html.Label("Dosya Linki")
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DosyaAdi)
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" value="~/Templates/Files/@item.DosyaEkle" id="myInput">
+                        <button onclick="myFunction()"><i class="fa fa-clone" aria-hidden="true"></i></button>
+
+                        <script>
+                            function myFunction() {
+                                var copyText = document.getElementById("myInput");
+                                copyText.select();
+                                document.execCommand("copy");
+
+                            }
+                        </script>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" href="~/Templates//Files/@item.DosyaEkle" target="_blank">Göster</a> |
+
+                        <a class="btn btn-warning btnDosyaSil" data-id="@item.Id"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $("#tblDosya").DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+                }
+            })
+        });
+        $(function () {
+            $("#tblDosya").on("click", ".btnDosyaSil", function () {
+                var btn = $(this);
+                bootbox.confirm("Dosyayı Silmek İstediğinizden Emin Misiniz ?", function (result) {
+                    if (result) {
+                        var id = btn.data("id");
+
+                        $.ajax({
+                            type: "GET",
+                            url: "/Dosyalar/Delete/" + id,
+                            success: function () {
+                                window.location.reload();
+
+                            }
+                        });
+                    }
+                })
+            });
+
+        });
+    </script>
+}

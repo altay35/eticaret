@@ -1,0 +1,222 @@
+﻿
+@{
+    ViewBag.Title = "Projeler";
+    Layout = "~/Views/Home/Temp1.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/styles/categories.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/categories_responsive.css">
+    <link href="~/styles/owl.carousel.css" rel="stylesheet" />
+    <link href="~/styles/ders.css.css" rel="stylesheet" />
+</head>
+<div class="home">
+    <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="/images/categories.jpg" data-speed="0.8"></div>
+    <div class="home_container">
+        <div class="home_content">
+            <div class="home_title">Projeler</div>
+            <div class="breadcrumbs">
+                <ul class="d-flex flex-row align-items-center justify-content-start">
+                    <li><a href="index.html">Anasayfa</a></li>
+                    <li><a href="#">Projeler</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="search-section ss-other-page">
+    <div class="container">
+        <div class="search-warp">
+            <div class="section-title text-white">
+                <h2><span>İstediğin Projeyi Ara</span></h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <!-- search form -->
+                    <form class="course-search-form">
+                        <input type="text" placeholder="Course">
+                        <input type="text" class="last-m" placeholder="Category">
+                        <button class="site-btn btn-dark">Arama</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="course-section spad pb-0">
+    <div class="course-warp">
+        <ul class="course-filter controls">
+            <li class="control active" data-filter="all">Hepsi</li>
+            <li class="control" data-filter=".finance">Finans</li>
+            <li class="control" data-filter=".design">Tasarım</li>
+            <li class="control" data-filter=".web">Web</li>
+            <li class="control" data-filter=".photo">Fotoğraf</li>
+        </ul>
+        <div class="row course-items-area">
+            <!-- course -->
+            <div class="mix col-lg-3 col-md-4 col-sm-6 finance">
+                <div class="course-item">
+                    <div class="course-thumb set-bg" data-setbg="/images/1.jpg">
+                        <div class="price">Ücret: $15</div>
+                    </div>
+                    <div class="course-info">
+                        <div class="course-text">
+                            <h5><a href="/Home/KursDetay">Resim & Grafik</a></h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur</p>
+                            <div class="students">120 Öğrenci</div>
+                        </div>
+                        <div class="course-author">
+                            <div class="ca-pic set-bg" data-setbg="/images/1.jpg"></div>
+                            <p>Murat ALTAY,<span>Developer</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- course -->
+            <div class="mix col-lg-3 col-md-4 col-sm-6 design">
+                <div class="course-item">
+                    <div class="course-thumb set-bg" data-setbg="/images/2.jpg">
+                        <div class="price">Ücretsiz</div>
+                    </div>
+                    <div class="course-info">
+                        <div class="course-text">
+                            <h5><a href="/Home/KursDetay">JAVA Programlama</a></h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur</p>
+                            <div class="students">120 Öğrenci</div>
+                        </div>
+                        <div class="course-author">
+                            <div class="ca-pic set-bg" data-setbg="/images/2.jpg"></div>
+                            <p>OsmanBozkurt<span>Developer</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- course -->
+            <div class="mix col-lg-3 col-md-4 col-sm-6 web">
+                <div class="course-item">
+                    <div class="course-thumb set-bg" data-setbg="/images/3.jpg">
+                        <div class="price">Ücretsiz: $15</div>
+                    </div>
+                    <div class="course-info">
+                        <div class="course-text">
+                            <h5><a href="/Home/KursDetay">Grafik Tasarım</a></h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur</p>
+                            <div class="students">120 Öğrenci</div>
+                        </div>
+                        <div class="course-author">
+                            <div class="ca-pic set-bg" data-setbg="/images/3.jpg"></div>
+                            <p>Kemal Keskin<span>Developer</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- course -->
+            <div class="mix col-lg-3 col-md-4 col-sm-6 photo">
+                <div class="course-item">
+                    <div class="course-thumb set-bg" data-setbg="/images/4.jpg">
+                        <div class="price">Ücret: $15</div>
+                    </div>
+                    <div class="course-info">
+                        <div class="course-text">
+                            <h5><a href="/Home/KursDetay">Web Tasarım</a></h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur</p>
+                            <div class="students">120 Öğrenci</div>
+                        </div>
+                        <div class="course-author">
+                            <div class="ca-pic set-bg" data-setbg="/images/4.jpg"></div>
+                            <p>Sümeyye Ay<span>Developer</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- course -->
+            <div class="mix col-lg-3 col-md-4 col-sm-6 finance">
+                <div class="course-item">
+                    <div class="course-thumb set-bg" data-setbg="/images/5.jpg">
+                        <div class="price">Ücret: $15</div>
+                    </div>
+                    <div class="course-info">
+                        <div class="course-text">
+                            <h5><a href="/Home/KursDetay">Hukuk</a></h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur</p>
+                            <div class="students">120 Öğrenci</div>
+                        </div>
+                        <div class="course-author">
+                            <div class="ca-pic set-bg" data-setbg="/images/5.jpg"></div>
+                            <p>HasanKaraman<span>Developer</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- course -->
+            <div class="mix col-lg-3 col-md-4 col-sm-6 design">
+                <div class="course-item">
+                    <div class="course-thumb set-bg" data-setbg="/images/6.jpg">
+                        <div class="price">Ücretsiz</div>
+                    </div>
+                    <div class="course-info">
+                        <div class="course-text">
+                            <h5><a href="/Home/KursDetay">Sosyal Medya</a></h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur</p>
+                            <div class="students">120 Öğrenci</div>
+                        </div>
+                        <div class="course-author">
+                            <div class="ca-pic set-bg" data-setbg="/images/6.jpg"></div>
+                            <p>Hilal Karagöz,<span>Developer</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- course -->
+            <div class="mix col-lg-3 col-md-4 col-sm-6 web">
+                <div class="course-item">
+                    <div class="course-thumb set-bg" data-setbg="/images/7.jpg">
+                        <div class="price">Ücret: $15</div>
+                    </div>
+                    <div class="course-info">
+                        <div class="course-text">
+                            <h5><a href="/Home/KursDetay">E-Ticaret</a></h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur</p>
+                            <div class="students">120 Öğrenci</div>
+                        </div>
+                        <div class="course-author">
+                            <div class="ca-pic set-bg" data-setbg="/images/7.jpg"></div>
+                            <p>Nihat Çelik,<span>Developer</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- course -->
+            <div class="mix col-lg-3 col-md-4 col-sm-6 photo">
+                <div class="course-item">
+                    <div class="course-thumb set-bg" data-setbg="/images/8.jpg">
+                        <div class="price">Ücretsiz</div>
+                    </div>
+                    <div class="course-info">
+                        <div class="course-text">
+                            <h5><a href="/Home/KursDetay">HTML 5</a></h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur</p>
+                            <div class="students">120 Öğrenci</div>
+                        </div>
+                        <div class="course-author">
+                            <div class="ca-pic set-bg" data-setbg="/images/8.jpg"></div>
+                            <p>Yavuz Pişken,<span>Developer</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+@section scripts{
+
+
+
+    <script src="~/js/mixitup.min.js"></script>
+    <script src="~/js/circle-progress.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/main.js"></script>
+}
+
