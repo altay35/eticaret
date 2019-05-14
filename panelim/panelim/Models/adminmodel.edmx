@@ -5,13 +5,36 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SiteDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dersler">
+          <Key>
+            <PropertyRef Name="DersId" />
+          </Key>
+          <Property Name="DersId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DersAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DersIcerik" Type="nvarchar" MaxLength="500" />
+          <Property Name="DersVideo" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="KursId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Kullanici">
           <Key>
             <PropertyRef Name="KullaniciId" />
           </Key>
           <Property Name="KullaniciId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Parola" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kurs">
+          <Key>
+            <PropertyRef Name="KursId" />
+          </Key>
+          <Property Name="KursId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KursAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="KursVeren" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="KursHakkinda" Type="nvarchar" MaxLength="300" />
+          <Property Name="KursUcret" Type="varchar" MaxLength="50" />
+          <Property Name="KursImage" Type="nvarchar" MaxLength="200" />
+          <Property Name="KursKategori" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sayfaform">
           <Key>
@@ -116,15 +139,28 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MenuAd" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="yeni">
+        <EntityType Name="yorum">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="adi" Type="varchar" MaxLength="50" />
-          <Property Name="soyadi" Type="varchar" MaxLength="50" />
-          <Property Name="mesaj" Type="varchar" MaxLength="50" />
+          <Property Name="y_yapan" Type="int" Nullable="false" />
+          <Property Name="y_icerik" Type="nvarchar" MaxLength="400" />
+          <Property Name="y_secenek" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="y_id" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Dersler_Kurs">
+          <End Role="Kurs" Type="Self.Kurs" Multiplicity="1" />
+          <End Role="Dersler" Type="Self.Dersler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kurs">
+              <PropertyRef Name="KursId" />
+            </Principal>
+            <Dependent Role="Dersler">
+              <PropertyRef Name="KursId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_sayfaform_Sayfalar">
           <End Role="Sayfalar" Type="Self.Sayfalar" Multiplicity="1" />
           <End Role="sayfaform" Type="Self.sayfaform" Multiplicity="*" />
@@ -221,8 +257,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_yorum_Kullanici">
+          <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="1" />
+          <End Role="yorum" Type="Self.yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanici">
+              <PropertyRef Name="KullaniciId" />
+            </Principal>
+            <Dependent Role="yorum">
+              <PropertyRef Name="y_yapan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_yorum_Kurs">
+          <End Role="Kurs" Type="Self.Kurs" Multiplicity="1" />
+          <End Role="yorum" Type="Self.yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kurs">
+              <PropertyRef Name="KursId" />
+            </Principal>
+            <Dependent Role="yorum">
+              <PropertyRef Name="y_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SiteDbModelStoreContainer">
+          <EntitySet Name="Dersler" EntityType="Self.Dersler" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kullanici" EntityType="Self.Kullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kurs" EntityType="Self.Kurs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sayfaform" EntityType="Self.sayfaform" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sayfalar" EntityType="Self.Sayfalar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -234,7 +296,11 @@
           <EntitySet Name="tblGaleriResim" EntityType="Self.tblGaleriResim" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLogo" EntityType="Self.tblLogo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMenu" EntityType="Self.tblMenu" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="yeni" EntityType="Self.yeni" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="yorum" EntityType="Self.yorum" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Dersler_Kurs" Association="Self.FK_Dersler_Kurs">
+            <End Role="Kurs" EntitySet="Kurs" />
+            <End Role="Dersler" EntitySet="Dersler" />
+          </AssociationSet>
           <AssociationSet Name="FK_sayfaform_Sayfalar" Association="Self.FK_sayfaform_Sayfalar">
             <End Role="Sayfalar" EntitySet="Sayfalar" />
             <End Role="sayfaform" EntitySet="sayfaform" />
@@ -267,19 +333,19 @@
             <End Role="tblGaleri" EntitySet="tblGaleri" />
             <End Role="tblGaleriResim" EntitySet="tblGaleriResim" />
           </AssociationSet>
+          <AssociationSet Name="FK_yorum_Kullanici" Association="Self.FK_yorum_Kullanici">
+            <End Role="Kullanici" EntitySet="Kullanici" />
+            <End Role="yorum" EntitySet="yorum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_yorum_Kurs" Association="Self.FK_yorum_Kurs">
+            <End Role="Kurs" EntitySet="Kurs" />
+            <End Role="yorum" EntitySet="yorum" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SiteDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Kullanici">
-          <Key>
-            <PropertyRef Name="KullaniciId" />
-          </Key>
-          <Property Name="KullaniciId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Parola" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="sayfaform">
           <Key>
             <PropertyRef Name="Id" />
@@ -496,7 +562,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SiteDbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Kullanici" EntityType="Self.Kullanici" />
           <EntitySet Name="sayfaform" EntityType="Self.sayfaform" />
           <EntitySet Name="Sayfalar" EntityType="Self.Sayfalar" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -540,32 +605,112 @@
             <End Role="tblGaleri" EntitySet="tblGaleri" />
             <End Role="tblGaleriResim" EntitySet="tblGaleriResim" />
           </AssociationSet>
-          <EntitySet Name="yeni" EntityType="SiteDbModel.yeni" />
-        </EntityContainer>
-        <EntityType Name="yeni">
+          <EntitySet Name="Kullanici" EntityType="SiteDbModel.Kullanici" />
+          <EntitySet Name="Dersler" EntityType="SiteDbModel.Dersler" />
+          <EntitySet Name="Kurs" EntityType="SiteDbModel.Kurs" />
+          <AssociationSet Name="FK_Dersler_Kurs" Association="SiteDbModel.FK_Dersler_Kurs">
+            <End Role="Kurs" EntitySet="Kurs" />
+            <End Role="Dersler" EntitySet="Dersler" />
+          </AssociationSet>
+          <EntitySet Name="yorum" EntityType="SiteDbModel.yorum" />
+          <AssociationSet Name="FK_yorum_Kullanici" Association="SiteDbModel.FK_yorum_Kullanici">
+            <End Role="Kullanici" EntitySet="Kullanici" />
+            <End Role="yorum" EntitySet="yorum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_yorum_Kurs" Association="SiteDbModel.FK_yorum_Kurs">
+            <End Role="Kurs" EntitySet="Kurs" />
+            <End Role="yorum" EntitySet="yorum" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Kullanici">
+          <Key>
+            <PropertyRef Name="KullaniciId" />
+          </Key>
+          <Property Name="KullaniciId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parola" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="yorum" Relationship="SiteDbModel.FK_yorum_Kullanici" FromRole="Kullanici" ToRole="yorum" />
+        </EntityType>
+        <EntityType Name="Dersler">
+          <Key>
+            <PropertyRef Name="DersId" />
+          </Key>
+          <Property Name="DersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DersAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DersIcerik" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DersVideo" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="KursId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kurs" Relationship="SiteDbModel.FK_Dersler_Kurs" FromRole="Dersler" ToRole="Kurs" />
+        </EntityType>
+        <EntityType Name="Kurs">
+          <Key>
+            <PropertyRef Name="KursId" />
+          </Key>
+          <Property Name="KursId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KursAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KursVeren" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KursHakkinda" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="KursUcret" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KursImage" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="KursKategori" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dersler" Relationship="SiteDbModel.FK_Dersler_Kurs" FromRole="Kurs" ToRole="Dersler" />
+          <NavigationProperty Name="yorum" Relationship="SiteDbModel.FK_yorum_Kurs" FromRole="Kurs" ToRole="yorum" />
+        </EntityType>
+        <Association Name="FK_Dersler_Kurs">
+          <End Type="SiteDbModel.Kurs" Role="Kurs" Multiplicity="1" />
+          <End Type="SiteDbModel.Dersler" Role="Dersler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kurs">
+              <PropertyRef Name="KursId" />
+            </Principal>
+            <Dependent Role="Dersler">
+              <PropertyRef Name="KursId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="yorum">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="soyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="mesaj" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="y_yapan" Type="Int32" Nullable="false" />
+          <Property Name="y_icerik" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="y_secenek" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="y_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kullanici" Relationship="SiteDbModel.FK_yorum_Kullanici" FromRole="yorum" ToRole="Kullanici" />
+          <NavigationProperty Name="Kurs" Relationship="SiteDbModel.FK_yorum_Kurs" FromRole="yorum" ToRole="Kurs" />
         </EntityType>
-      </Schema>
+        <Association Name="FK_yorum_Kullanici">
+          <End Type="SiteDbModel.Kullanici" Role="Kullanici" Multiplicity="1" />
+          <End Type="SiteDbModel.yorum" Role="yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanici">
+              <PropertyRef Name="KullaniciId" />
+            </Principal>
+            <Dependent Role="yorum">
+              <PropertyRef Name="y_yapan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_yorum_Kurs">
+          <End Type="SiteDbModel.Kurs" Role="Kurs" Multiplicity="1" />
+          <End Type="SiteDbModel.yorum" Role="yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kurs">
+              <PropertyRef Name="KursId" />
+            </Principal>
+            <Dependent Role="yorum">
+              <PropertyRef Name="y_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SiteDbModelStoreContainer" CdmEntityContainer="SiteDbEntities">
-          <EntitySetMapping Name="Kullanici">
-            <EntityTypeMapping TypeName="SiteDbModel.Kullanici">
-              <MappingFragment StoreEntitySet="Kullanici">
-                <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
-                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
-                <ScalarProperty Name="Parola" ColumnName="Parola" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sayfaform">
             <EntityTypeMapping TypeName="SiteDbModel.sayfaform">
               <MappingFragment StoreEntitySet="sayfaform">
@@ -680,12 +825,47 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="yeni">
-            <EntityTypeMapping TypeName="SiteDbModel.yeni">
-              <MappingFragment StoreEntitySet="yeni">
-                <ScalarProperty Name="mesaj" ColumnName="mesaj" />
-                <ScalarProperty Name="soyadi" ColumnName="soyadi" />
-                <ScalarProperty Name="adi" ColumnName="adi" />
+          <EntitySetMapping Name="Kullanici">
+            <EntityTypeMapping TypeName="SiteDbModel.Kullanici">
+              <MappingFragment StoreEntitySet="Kullanici">
+                <ScalarProperty Name="Parola" ColumnName="Parola" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dersler">
+            <EntityTypeMapping TypeName="SiteDbModel.Dersler">
+              <MappingFragment StoreEntitySet="Dersler">
+                <ScalarProperty Name="KursId" ColumnName="KursId" />
+                <ScalarProperty Name="DersVideo" ColumnName="DersVideo" />
+                <ScalarProperty Name="DersIcerik" ColumnName="DersIcerik" />
+                <ScalarProperty Name="DersAdi" ColumnName="DersAdi" />
+                <ScalarProperty Name="DersId" ColumnName="DersId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kurs">
+            <EntityTypeMapping TypeName="SiteDbModel.Kurs">
+              <MappingFragment StoreEntitySet="Kurs">
+                <ScalarProperty Name="KursKategori" ColumnName="KursKategori" />
+                <ScalarProperty Name="KursImage" ColumnName="KursImage" />
+                <ScalarProperty Name="KursUcret" ColumnName="KursUcret" />
+                <ScalarProperty Name="KursHakkinda" ColumnName="KursHakkinda" />
+                <ScalarProperty Name="KursVeren" ColumnName="KursVeren" />
+                <ScalarProperty Name="KursAdi" ColumnName="KursAdi" />
+                <ScalarProperty Name="KursId" ColumnName="KursId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="yorum">
+            <EntityTypeMapping TypeName="SiteDbModel.yorum">
+              <MappingFragment StoreEntitySet="yorum">
+                <ScalarProperty Name="y_id" ColumnName="y_id" />
+                <ScalarProperty Name="y_secenek" ColumnName="y_secenek" />
+                <ScalarProperty Name="y_icerik" ColumnName="y_icerik" />
+                <ScalarProperty Name="y_yapan" ColumnName="y_yapan" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

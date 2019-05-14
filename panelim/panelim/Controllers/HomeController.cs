@@ -1,6 +1,8 @@
-﻿using System;
+﻿using panelim.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -39,31 +41,44 @@ namespace panelim.Controllers
         {
             return View();
         }
-        public ActionResult Hakkimizda()
+
+        public ActionResult Kurslar()
         {
-            return View();
-        }
-        public ActionResult Dersler()
-        {
-            return View();
-        }
-        public ActionResult VizeFinal()
-        {
+
             return View();
         }
         public ActionResult Projeler()
         {
+
             return View();
         }
-        public ActionResult NotHesaplama()
+        public ActionResult Vizefinal()
         {
+
             return View();
         }
         public ActionResult Iletisim()
         {
             return View();
         }
-        public ActionResult KursDetay()
+
+        public ActionResult KursDetay(int id)
+        {
+            if (genelIslem.loginOlmusmu() == 0)
+            {
+
+                return RedirectToAction("Login", "Security");
+            }
+            int kursid = id;
+            ViewBag.id = kursid;
+            return View();
+      
+        }
+        public ActionResult Login()
+        {
+            return View();
+        }
+        public ActionResult Register()
         {
             return View();
         }

@@ -14,8 +14,18 @@ namespace panelim.Models
     
     public partial class Kullanici
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Kullanici()
+        {
+            this.yorum = new HashSet<yorum>();
+        }
+    
         public int KullaniciId { get; set; }
         public string KullaniciAdi { get; set; }
+        public string Email { get; set; }
         public string Parola { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<yorum> yorum { get; set; }
     }
 }

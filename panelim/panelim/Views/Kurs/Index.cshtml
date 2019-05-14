@@ -1,0 +1,104 @@
+﻿@model IEnumerable<panelim.Models.Kurs>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="panel-heading">
+    <h3>KURSLAR</h3>
+</div>
+<div class="panel-body">
+
+    <p>
+        @Html.ActionLink("Yeni Kurs", "Create", null, new { @class = "btn btn-success" })
+    </p>
+    <hr />
+    <table id="tblKurs" class="table table-bordered" style="background-color:white; ">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.KursAdi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.KursVeren)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.KursHakkinda)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.KursUcret)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.KursImage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.KursKategori)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KursAdi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KursVeren)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KursHakkinda)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KursUcret)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KursImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KursKategori)
+                </td>
+                <td>
+                    <a class="btn btn-success" id="edit" href="~/Kurs/Edit/@item.KursId" data-id="@item.KursId">Düzenle</a>  |
+                    <a class="btn btn-warning btnKursSil" data-id="@item.KursId"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $("#tblKurs").DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+                }
+            })
+        });
+        $(function () {
+            $("#tblKurs").on("click", ".btnKursSil", function () {
+                var btn = $(this);
+                bootbox.confirm("Kursu Silmek İstediğinizden Emin Misiniz ?", function (result) {
+                    if (result) {
+                        var id = btn.data("id");
+
+                        $.ajax({
+                            type: "GET",
+                            url: "/Kurs/Delete/" + id,
+                            success: function () {
+                                window.location.reload();
+
+                            }
+                        });
+                    }
+                })
+            });
+
+        });
+    </script>
+}

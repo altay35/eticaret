@@ -1,13 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="SiteDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="Kullanici">
-    <Key>
-      <PropertyRef Name="KullaniciId" />
-    </Key>
-    <Property Name="KullaniciId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Parola" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-  </EntityType>
   <EntityType Name="sayfaform">
     <Key>
       <PropertyRef Name="Id" />
@@ -224,7 +216,6 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="SiteDbEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Kullanici" EntityType="Self.Kullanici" />
     <EntitySet Name="sayfaform" EntityType="Self.sayfaform" />
     <EntitySet Name="Sayfalar" EntityType="Self.Sayfalar" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -268,15 +259,104 @@
       <End Role="tblGaleri" EntitySet="tblGaleri" />
       <End Role="tblGaleriResim" EntitySet="tblGaleriResim" />
     </AssociationSet>
-    <EntitySet Name="yeni" EntityType="SiteDbModel.yeni" />
+    <EntitySet Name="Kullanici" EntityType="SiteDbModel.Kullanici" />
+    <EntitySet Name="Dersler" EntityType="SiteDbModel.Dersler" />
+    <EntitySet Name="Kurs" EntityType="SiteDbModel.Kurs" />
+    <AssociationSet Name="FK_Dersler_Kurs" Association="SiteDbModel.FK_Dersler_Kurs">
+      <End Role="Kurs" EntitySet="Kurs" />
+      <End Role="Dersler" EntitySet="Dersler" />
+    </AssociationSet>
+    <EntitySet Name="yorum" EntityType="SiteDbModel.yorum" />
+    <AssociationSet Name="FK_yorum_Kullanici" Association="SiteDbModel.FK_yorum_Kullanici">
+      <End Role="Kullanici" EntitySet="Kullanici" />
+      <End Role="yorum" EntitySet="yorum" />
+    </AssociationSet>
+    <AssociationSet Name="FK_yorum_Kurs" Association="SiteDbModel.FK_yorum_Kurs">
+      <End Role="Kurs" EntitySet="Kurs" />
+      <End Role="yorum" EntitySet="yorum" />
+    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="yeni">
+  <EntityType Name="Kullanici">
+    <Key>
+      <PropertyRef Name="KullaniciId" />
+    </Key>
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KullaniciAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Parola" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="yorum" Relationship="SiteDbModel.FK_yorum_Kullanici" FromRole="Kullanici" ToRole="yorum" />
+  </EntityType>
+  <EntityType Name="Dersler">
+    <Key>
+      <PropertyRef Name="DersId" />
+    </Key>
+    <Property Name="DersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DersAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DersIcerik" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DersVideo" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="KursId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Kurs" Relationship="SiteDbModel.FK_Dersler_Kurs" FromRole="Dersler" ToRole="Kurs" />
+  </EntityType>
+  <EntityType Name="Kurs">
+    <Key>
+      <PropertyRef Name="KursId" />
+    </Key>
+    <Property Name="KursId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KursAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KursVeren" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KursHakkinda" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="KursUcret" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="KursImage" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="KursKategori" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Dersler" Relationship="SiteDbModel.FK_Dersler_Kurs" FromRole="Kurs" ToRole="Dersler" />
+    <NavigationProperty Name="yorum" Relationship="SiteDbModel.FK_yorum_Kurs" FromRole="Kurs" ToRole="yorum" />
+  </EntityType>
+  <Association Name="FK_Dersler_Kurs">
+    <End Type="SiteDbModel.Kurs" Role="Kurs" Multiplicity="1" />
+    <End Type="SiteDbModel.Dersler" Role="Dersler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kurs">
+        <PropertyRef Name="KursId" />
+      </Principal>
+      <Dependent Role="Dersler">
+        <PropertyRef Name="KursId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="yorum">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="soyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="mesaj" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="y_yapan" Type="Int32" Nullable="false" />
+    <Property Name="y_icerik" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+    <Property Name="y_secenek" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="y_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Kullanici" Relationship="SiteDbModel.FK_yorum_Kullanici" FromRole="yorum" ToRole="Kullanici" />
+    <NavigationProperty Name="Kurs" Relationship="SiteDbModel.FK_yorum_Kurs" FromRole="yorum" ToRole="Kurs" />
   </EntityType>
+  <Association Name="FK_yorum_Kullanici">
+    <End Type="SiteDbModel.Kullanici" Role="Kullanici" Multiplicity="1" />
+    <End Type="SiteDbModel.yorum" Role="yorum" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanici">
+        <PropertyRef Name="KullaniciId" />
+      </Principal>
+      <Dependent Role="yorum">
+        <PropertyRef Name="y_yapan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_yorum_Kurs">
+    <End Type="SiteDbModel.Kurs" Role="Kurs" Multiplicity="1" />
+    <End Type="SiteDbModel.yorum" Role="yorum" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kurs">
+        <PropertyRef Name="KursId" />
+      </Principal>
+      <Dependent Role="yorum">
+        <PropertyRef Name="y_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

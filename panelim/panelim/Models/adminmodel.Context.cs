@@ -25,7 +25,6 @@ namespace panelim.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Kullanici> Kullanici { get; set; }
         public virtual DbSet<sayfaform> sayfaform { get; set; }
         public virtual DbSet<Sayfalar> Sayfalar { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
@@ -37,6 +36,9 @@ namespace panelim.Models
         public virtual DbSet<tblGaleriResim> tblGaleriResim { get; set; }
         public virtual DbSet<tblLogo> tblLogo { get; set; }
         public virtual DbSet<tblMenu> tblMenu { get; set; }
-        public virtual DbSet<yeni> yeni { get; set; }
+        public virtual DbSet<Kullanici> Kullanici { get; set; }
+        public virtual DbSet<Dersler> Dersler { get; set; }
+        public virtual DbSet<Kurs> Kurs { get; set; }
+        public virtual DbSet<yorum> yorum { get; set; }
     }
 }

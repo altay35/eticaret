@@ -1,0 +1,118 @@
+﻿@model panelim.Models.Kullanici
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Home/Temp1.cshtml";
+}
+
+<style>
+    .login {
+        position: relative;
+        z-index: 4;
+        width: 100%;
+        background-attachment: fixed
+    }
+
+    .modal-body {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    label.col-form-label {
+        color: #fff;
+        letter-spacing: 1px;
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+
+    .modal-body .form-control {
+        background: #fff;
+        border-radius: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border: none;
+        padding: 10px 15px;
+    }
+
+    button.button-style-w3 {
+        outline: none;
+        padding: 12px 20px;
+        font-size: 14px;
+        color: #fff;
+        background: #ff7f62;
+        border: none;
+        border-radius: 0px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        -webkit-transition: 0.5s all;
+        -moz-transition: 0.5s all;
+        -o-transition: 0.5s all;
+        -ms-transition: 0.5s all;
+        transition: 0.5s all;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 1em;
+    }
+
+    .text-style-w3ls {
+        letter-spacing: 1px;
+        font-size: 15px;
+    }
+
+        p.dont-do a:hover,
+        .text-style-w3ls:hover {
+            color: #fff;
+        }
+</style>
+<section class="login bg-img bg-overlay-2by5" style="background-image: url(/Content/template/img/bg-img/bg1.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="inner-banner-w3ls py-5" id="home">
+                    <div class="container py-xl-5 py-lg-3">
+                        <!-- register  -->
+                        <div class="modal-body mt-md-2 mt-5">
+                            <h3 class="title-w3 mb-5 text-center text-wh font-weight-bold">Şimdi Kayıt Ol</h3>
+                            <form action="#" method="post">
+                                <div class="form-group">
+                                    <label class="col-form-label">Kullanıcı Adı</label>
+                                    @Html.TextBoxFor(m => m.KullaniciAdi, new { @class = "form-control", placeholder = "Kullanıcı Adı", autocomplete = "off" })
+                                    @Html.ValidationMessageFor(m => m.KullaniciAdi, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Email</label>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "E-Mail", autocomplete = "off" })
+                                    @Html.ValidationMessageFor(m => m.KullaniciAdi, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Parola</label>
+                                    @Html.TextBoxFor(m => m.Parola, new { @class = "form-control", placeholder = "Parola", Type = "Password" })
+                                    @Html.ValidationMessageFor(m => m.Parola, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Tekrar Parola</label>
+                                    @Html.TextBoxFor(m => m.Parola, new { @class = "form-control", placeholder = "Parola", Type = "Password" })
+                                    @Html.ValidationMessageFor(m => m.Parola, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="sub-w3l my-3">
+                                    <div class="sub-w3layouts_hub">
+                                        <input type="checkbox" id="brand1" value="">
+                                        <label for="brand1" class="text-li text-style-w3ls">
+                                            <span></span>Genel Koşulları Kabul ediyorum !
+                                        </label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn button-style-w3">Kayıt Ol</button>
+                            </form>
+                        </div>
+                        <!-- //register -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+

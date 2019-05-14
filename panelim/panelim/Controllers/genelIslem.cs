@@ -45,18 +45,18 @@ namespace System.Web.Mvc
                 return 0;
             }
         }
-        //public static List<Kullanici> kullanici(string kullaniciadi, string parola)
-        //{
-        //    SiteDbEntities kk = new SiteDbEntities();
-        //    List<Kullanici> kullanicilar = db.Kullanici.Where(m => m.KullaniciAdi == kullaniciadi && m.Parola == parola).ToList();
-        //    if(kullanicilar==null)
-        //    {
-        //        return null;
-        //    }
-        //    return kullanicilar;
+        public static string kullanici(int id)
+        {
+            SiteDbEntities kk = new SiteDbEntities();
+            var kullanicilar = db.Kullanici.Find(id);
+            if (kullanicilar == null)
+            {
+                return null;
+            }
+            return kullanicilar.KullaniciAdi;
 
-        //}
-        public static string logo(int? tempId)
+        }
+        public static string logo()
         {
             SiteDbEntities MB = new SiteDbEntities();
 
@@ -75,6 +75,38 @@ namespace System.Web.Mvc
             List<tblAltMenu> menuler = db.tblAltMenu.Where(m => m.UstId == id).AsEnumerable().ToList();
 
             return menuler;
+
+        }
+        public static List<yorum> yorum(int id)
+        {
+
+            List<yorum> yorumlar = db.yorum.Where(m => m.y_id == id).AsEnumerable().ToList();
+
+            return yorumlar;
+
+        }
+        public static List<Dersler> derslers(int id)
+        {
+
+            List<Dersler> ders = db.Dersler.Where(m => m.KursId == id).AsEnumerable().ToList();
+
+            return ders;
+
+        }
+        public static List<Kurs> kursum(int? id)
+        {
+
+            List<Kurs> kurslar = db.Kurs.Where(m=>m.KursId==id).ToList();
+
+            return kurslar;
+
+        }
+        public static List<Kurs> kurs()
+        {
+
+            List<Kurs> kurslar = db.Kurs.ToList();
+
+            return kurslar;
 
         }
         public static string menuIddenAd(int? menuid)

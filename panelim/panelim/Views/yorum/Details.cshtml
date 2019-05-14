@@ -1,0 +1,51 @@
+﻿@model panelim.Models.yorum
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>yorum</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.y_icerik)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.y_icerik)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.y_secenek)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.y_secenek)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kullanici.KullaniciAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kullanici.KullaniciAdi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kurs.KursAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kurs.KursAdi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

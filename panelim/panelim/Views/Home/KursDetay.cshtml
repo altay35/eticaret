@@ -1,182 +1,244 @@
 ﻿
+
 @{
     ViewBag.Title = "KursDetay";
     Layout = "~/Views/Home/Temp1.cshtml";
 }
-<head>
-    <link rel="stylesheet" type="text/css" href="~/styles/categories.css">
-    <link rel="stylesheet" type="text/css" href="~/styles/categories_responsive.css">
-    <link href="~/styles/style.css" rel="stylesheet" />
-</head>
-<div class="home">
-    <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="/images/banner.jpg" data-speed="0.8"></div>
-    <div class="home_container">
-        <div class="home_content">
-            <div class="home_title">Kurs Detayı</div>
-            <div class="breadcrumbs">
-                <ul class="d-flex flex-row align-items-center justify-content-start">
-                    <li><a href="index.html">Anasayfa</a></li>
-                    <li><a href="#">Kurslar</a></li>
-                    <li><a href="#">Detay</a></li>
-                </ul>
+<style>
+    .modal-backdrop {
+        display: none !important;
+    }
+</style>
+@foreach (var i in genelIslem.kursum(ViewBag.id))
+{
+    <div class="breadcumb-area">
+        <!-- Breadcumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Courses</a></li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="single-course-intro d-flex align-items-center justify-content-center" style="background-image: url(/Content/template/img/bg-img/bg3.jpg);">
+        <!-- Content -->
+        <div class="single-course-intro-content text-center">
+            <!-- Ratings -->
+            <div class="ratings">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
+            <h3>@i.KursAdi</h3>
+            <div class="meta d-flex align-items-center justify-content-center">
+                <a href="#">@i.KursVeren</a>
+                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                <a href="#">@i.KursKategori</a>
+            </div>
+            <div class="price">@i.KursUcret</div>
         </div>
     </div>
-</div>
-<section class="course_details_area p_120">
-    <div class="container">
-        <div class="row course_details_inner">
-            <div class="col-lg-8">
-                <div class="c_details_img">
-                    <img class="img-fluid" src="~/images/course-details.jpg" alt="">
-                </div>
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Kurs Hakkında</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Özet</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Kurs İçeriği</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">Yorumlar</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="objctive_text">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <div class="objctive_text">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                        <div class="objctive_text">
-                            <ul class="list">
-                                <li><a href="#">Introduction Lesson</a></li>
-                                <li><a href="#">Basics of HTML</a></li>
-                                <li><a href="#">Getting Know about HTML 5</a></li>
-                                <li><a href="#">Tags and Attributes</a></li>
-                                <li><a href="#">Basics of CSS</a></li>
-                                <li><a href="#">Getting Familiar with CSS 3</a></li>
-                                <li><a href="#">Introduction to Bootstrap 3.0</a></li>
-                                <li><a href="#">Responsive Design</a></li>
-                                <li><a href="#">Canvas in HTML 5</a></li>
+    <div class="single-course-content section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <div class="course--content">
+
+                        <div class="clever-tabs-content">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="tab--1" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false">Açıklama</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="tab--2" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="true">Dersler</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="tab--3" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="true">Yorumlar</a>
+                                </li>
+
                             </ul>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">
-                        <div class="comments-area">
-                            <h4>05 Yorum</h4>
-                            <div class="comment-list">
-                                <div class="single-comment justify-content-between d-flex">
-                                    <div class="user justify-content-between d-flex">
-                                        <div class="thumb">
-                                            <img src="~/images/c1.jpg" alt="">
+
+                            <div class="tab-content" id="myTabContent">
+                                <!-- Tab Text -->
+                                <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab--1">
+                                    <div class="clever-description">
+
+                                        <!-- About Course -->
+                                        <div class="about-course mb-30">
+
+                                            <p>@i.KursHakkinda</p>
                                         </div>
-                                        <div class="desc">
-                                            <h5><a href="#">Emilly Blunt</a></h5>
-                                            <p class="date">December 4, 2017 at 3:12 pm </p>
-                                            <p class="comment">
-                                                Never say goodbye till the end comes!
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="reply-btn">
-                                        <a href="" class="btn-reply text-uppercase">reply</a>
                                     </div>
                                 </div>
+
+                                <!-- Tab Text -->
+                                <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab--2">
+                                    <div class="clever-curriculum">
+
+                                        @foreach (var ders in genelIslem.derslers(i.KursId))
+                                        {
+                                            <!-- Curriculum Level -->
+                                            <div class="curriculum-level mb-30">
+                                                <h4 class="d-flex justify-content-between"><span>@ders.DersAdi</span> <span>0/4</span></h4>
+
+                                                <p>@ders.DersIcerik</p>
+
+                                                <ul class="curriculum-list">
+                                                    <li>
+                                                        <i class="fa fa-file" aria-hidden="true"></i> 1 video, 1 audio, 1 reading
+                                                        <ul>
+                                                            <li>
+                                                                <span><i class="fa fa-video-camera" aria-hidden="true"></i> Vid9eo:</span>
+                                                                <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModalCenter">
+                                                                   İzle
+                                                                </button>
+
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLongTitle">@ders.DersAdi</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                ...
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <span><i class="fa fa-clock-o" aria-hidden="true"></i> 15 minutes</span>
+                                                            </li>
+                                                            <li>
+                                                                <span><i class="fa fa-file-text" aria-hidden="true"></i> Reading: <span>Word Types</span></span>
+                                                                <span><i class="fa fa-clock-o" aria-hidden="true"></i> 15 minutes</span>
+                                                            </li>
+                                                            <li>
+                                                                <span><i class="fa fa-volume-down" aria-hidden="true"></i> Audio: <span>Listening Exercise</span></span>
+                                                                <span><i class="fa fa-clock-o" aria-hidden="true"></i> 15 minutes</span>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="d-flex justify-content-between">
+                                                        <span><i class="fa fa-graduation-cap" aria-hidden="true"></i> Graded: Cumulative Language Quiz</span>
+                                                        <span>3 Questions</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        }
+
+
+
+                                    </div>
+                                </div>
+
+                                <!-- Tab Text -->
+                                <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab--3">
+                                    <div class="clever-review">
+                                        @foreach (var y in genelIslem.yorum(i.KursId))
+                                        {
+                                            <div class="single-review mb-30">
+                                                <div class="d-flex justify-content-between mb-30">
+                                                    <!-- Review Admin -->
+                                                    <div class="review-admin d-flex">
+                                                        <div class="thumb">
+                                                            <img src="~/Content/template/img/bg-img/t1.png" alt="">
+                                                        </div>
+                                                        <div class="text">
+                                                            <h6>@genelIslem.kullanici(y.y_yapan)</h6>
+                                                            <span>@DateTime.Now</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Ratings -->
+                                                    <div class="ratings">
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                                <p>@y.y_icerik</p>
+                                            </div>
+                                        }
+                                        <!-- About Review -->
+                                        <div class="about-review mb-30">
+                                            <h4>Yorum Ve Sorularınız İçin</h4>
+                                            <form action="#" method="post">
+                                                <div class="row">
+                                                    <div class="col-12 col-lg-12">
+                                                        <div class="form-group">
+                                                            <input type="text"  rel="@i.KursId"class=" form-control" id="yorum" placeholder="Yorumunuz">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+
+                                                        <button type="submit" id="yorumcu" class="btn clever-btn w-100">Gönder</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="comment-list left-padding">
-                                <div class="single-comment justify-content-between d-flex">
-                                    <div class="user justify-content-between d-flex">
-                                        <div class="thumb">
-                                            <img src="~/images/c2.jpg" alt="">
-                                        </div>
-                                        <div class="desc">
-                                            <h5><a href="#">Elsie Cunningham</a></h5>
-                                            <p class="date">December 4, 2017 at 3:12 pm </p>
-                                            <p class="comment">
-                                                Never say goodbye till the end comes!
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="reply-btn">
-                                        <a href="" class="btn-reply text-uppercase">reply</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="comment-list">
-                                <div class="single-comment justify-content-between d-flex">
-                                    <div class="user justify-content-between d-flex">
-                                        <div class="thumb">
-                                            <img src="~/images/c5.jpg" alt="">
-                                        </div>
-                                        <div class="desc">
-                                            <h5><a href="#">Ina Hayes</a></h5>
-                                            <p class="date">December 4, 2017 at 3:12 pm </p>
-                                            <p class="comment">
-                                                Never say goodbye till the end comes!
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="reply-btn">
-                                        <a href="" class="btn-reply text-uppercase">reply</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment-form">
-                            <h4>Yorum EKLE</h4>
-                            <form>
-                                <div class="form-group form-inline">
-                                    <div class="form-group col-lg-6 col-md-6 name">
-                                        <input type="text" class="form-control" id="name" placeholder="Enter Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'">
-                                    </div>
-                                    <div class="form-group col-lg-6 col-md-6 email">
-                                        <input type="email" class="form-control" id="email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'">
-                                </div>
-                                <div class="form-group">
-                                    <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
-                                </div>
-                                <a href="#" class="primary-btn submit_btn">Gönder</a>
-                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="c_details_list">
-                    <ul class="list">
-                        <li><a href="#">Kurs Hocası <span>Murat Altay</span></a></li>
-                        <li><a href="#">Kurs Ücreti <span>$230</span></a></li>
-                        <li><a href="#">Ders Sayısı <span>15</span></a></li>
-                       
-                    </ul>
-                    <a class="main_btn" href="#">Kursu Satın Al</a>
+
+                <div class="col-12 col-lg-4">
+                    <div class="course-sidebar">
+                        <!-- Buy Course -->
+                        <a href="#" class="btn clever-btn mb-30 w-100">Satın Al</a>
+
+
+
+                        <!-- Widget -->
+                        <div class="sidebar-widget">
+                            <h4>Certification</h4>
+                            <img src="~/Content/template/img/bg-img/cer.png" alt="">
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
-
-@section scripts{
-
-
-
-    <script src="~/js/mixitup.min.js"></script>
-    <script src="~/js/circle-progress.min.js"></script>
-    <script src="~/js/owl.carousel.min.js"></script>
-    <script src="~/js/main.js"></script>
 }
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#yorumcu").click (function () {
+
+                var y_icerik = $("#yorum").val();
+                var y_secenek = "kurs";
+                var y_id = $("#yorum").attr("rel");
+                $.ajax({
+                    url: "/yorum/YorumYap",
+                    data: { "y_icerik": y_icerik, "y_secenek": y_secenek, "y_id": y_id },
+                    type: "post",
+                    dataType: "json",
+                    success: function () {
+              
+                        bootbox.alert("Kayıt Başarılı");
+                    },
+                    error: function (xhr) {
+                        alert("kaydetme hatası");
+                    }
+                })
+            });
+        });
+    </script>
+}
+
+
+

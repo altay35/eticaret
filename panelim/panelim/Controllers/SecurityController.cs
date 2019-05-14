@@ -30,7 +30,7 @@ namespace YoneticiPanel.Controllers
                 HttpCookie giris = new HttpCookie("giris");
                 giris["userid"]= (kullaniciInDb.KullaniciId).ToString();
                 Response.Cookies.Add(giris);
-                 Response.Redirect(url:"/Home/Index");
+                 Response.Redirect(url:"/Home/Anasayfa");
                 
 
             }
@@ -39,19 +39,21 @@ namespace YoneticiPanel.Controllers
             ViewBag.Mesaj = "Geçersiz kullanıcı adı veya şifre";
             return RedirectToAction("Login");
         }
-        [HttpPost]
-        public JsonResult SiteLogin(Kullanici kullanici)
+        public ActionResult Register()
         {
-            var kullaniciInDb = db.Kullanici.FirstOrDefault(x => x.KullaniciAdi == kullanici.KullaniciAdi && x.Parola == kullanici.Parola);
-
-            if (kullaniciInDb != null)
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(Kullanici kullanici)
+        {
+            if (ModelState.IsValid)
             {
-                string mail = kullaniciInDb.KullaniciAdi;
-                return Json(mail, JsonRequestBehavior.AllowGet);
 
-            }  
-
-            return Json(false);
+                db.Kullanici.Add(kullanici);
+                db.SaveChanges();
+                return RedirectToAction("Login");
+            }
+            return View();
         }
         public ActionResult Logout()
         {

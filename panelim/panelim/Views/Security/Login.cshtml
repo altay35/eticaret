@@ -1,88 +1,112 @@
 ﻿@model panelim.Models.Kullanici
-
 @{
-    Layout = null;
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Home/Temp1.cshtml";
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Kullanıcı Girişi</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- MetisMenu CSS -->
-    <link href="~/Content/css/metisMenu.min.css" rel="stylesheet" />
-    <!-- Custom CSS -->
-    <link href="~/Content/css/sb-admin-2.css" rel="stylesheet" />
-    <!-- Custom Fonts -->
-    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<style>
+    .login {
+        position: relative;
+        z-index: 4;
+        width: 100%;
+        background-attachment: fixed
+    }
 
+    .modal-body {
+        max-width: 600px;
+        margin: 0 auto;
+    }
 
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading"  style="background-color: #5cb85c">
-                        <h3 class="panel-title">Lütfen Giriş Yapın</h3>
-                       
+    label.col-form-label {
+        color: #fff;
+        letter-spacing: 1px;
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
 
-                    </div>
-                    <div class="panel-body">
-                        <form class="form" action="" method="post">
-                            <font color="@ViewBag.color">@ViewBag.Mesaj</font>
-                            <fieldset>
+    .modal-body .form-control {
+        background: #fff;
+        border-radius: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border: none;
+        padding: 10px 15px;
+    }
 
-                                <div class="form-group">
-                                    @Html.TextBoxFor(m => m.KullaniciAdi, new { @class = "form-control", placeholder = "Kullanıcı Adı", autocomplete = "off" })
-                                    @Html.ValidationMessageFor(m => m.KullaniciAdi, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.TextBoxFor(m => m.Parola, new { @class = "form-control", placeholder = "Parola", Type = "Password" })
-                                    @Html.ValidationMessageFor(m => m.Parola, "", new { @class = "text-danger" })
-                                </div>
-                                @*<div class="form-group" id="temp">
+    button.button-style-w3 {
+        outline: none;
+        padding: 12px 20px;
+        font-size: 14px;
+        color: #fff;
+        background: #ff7f62;
+        border: none;
+        border-radius: 0px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        -webkit-transition: 0.5s all;
+        -moz-transition: 0.5s all;
+        -o-transition: 0.5s all;
+        -ms-transition: 0.5s all;
+        transition: 0.5s all;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 1em;
+    }
 
-                                    @Html.DropDownList("TempId", (SelectList)ViewData["TempId"], "Lütfen bir template seçiniz...", new { @class = "form-control", id = "temp" })
-                                    @Html.ValidationMessageFor(model => model.TempId, "", new { @class = "text-danger" })
-                                 
+    .text-style-w3ls {
+        letter-spacing: 1px;
+        font-size: 15px;
+    }
 
-                                </div>*@
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Beni Hatırla">Beni Hatırla
+        p.dont-do a:hover,
+        .text-style-w3ls:hover {
+            color: #fff;
+        }
+</style>
+<section class="login bg-img bg-overlay-2by5" style="background-image: url(/Content/template/img/bg-img/bg1.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="container py-xl-5 py-lg-3">
+                    <!-- login  -->
+                    <div class="modal-body my-5 pt-4">
+                        <h3 class="title-w3 mb-5 text-center text-wh font-weight-bold">GİRİŞ YAP</h3>
+                        <form action="#" method="post">
+                            <div class="form-group">
+
+                                <label class="col-form-label">Kullanıcı Adı</label>
+                                @Html.TextBoxFor(m => m.KullaniciAdi, new { @class = "form-control", placeholder = "Kullanıcı Adı", autocomplete = "off" })
+                                @Html.ValidationMessageFor(m => m.KullaniciAdi, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Parola</label>
+                                @Html.TextBoxFor(m => m.Parola, new { @class = "form-control", placeholder = "Parola", Type = "Password" })
+                                @Html.ValidationMessageFor(m => m.Parola, "", new { @class = "text-danger" })
+                            </div>
+                            <button type="submit" class="btn button-style-w3">Giriş</button>
+                            <div class="row sub-w3l mt-3 mb-5">
+                                <div class="col-sm-6 sub-w3layouts_hub">
+                                    <input type="checkbox" id="brand1" value="">
+                                    <label for="brand1" class="text-li text-style-w3ls">
+                                        <span></span>Beni Hatırla?
                                     </label>
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <button class="btn btn-success" id="btnSubmit" type="submit">Giriş</button>
-                            </fieldset>
+                                <div class="col-sm-6 forgot-w3l text-sm-right">
+                                    <a href="#" class="text-li text-style-w3ls">Parolamı Unuttum ?</a>
+                                </div>
+                            </div>
+                            <p class="text-center dont-do text-style-w3ls text-li">
+                                Hesabınız Yok Mu ?
+                                <a href="/Security/Register" class="font-weight-bold text-li">
+                                    Şimdi Kayıt Ol
+                                </a>
+                            </p>
                         </form>
                     </div>
+                    <!-- //login -->
                 </div>
             </div>
         </div>
     </div>
-    <!-- jQuery -->
-    <script src="~/Scripts/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/metisMenu.min.js"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="~/Scripts/sb-admin-2.js"></script>
+</section>
 
-</body>
-</html>
+

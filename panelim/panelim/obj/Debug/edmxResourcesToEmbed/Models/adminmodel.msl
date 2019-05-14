@@ -1,15 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="SiteDbModelStoreContainer" CdmEntityContainer="SiteDbEntities">
-    <EntitySetMapping Name="Kullanici">
-      <EntityTypeMapping TypeName="SiteDbModel.Kullanici">
-        <MappingFragment StoreEntitySet="Kullanici">
-          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
-          <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
-          <ScalarProperty Name="Parola" ColumnName="Parola" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="sayfaform">
       <EntityTypeMapping TypeName="SiteDbModel.sayfaform">
         <MappingFragment StoreEntitySet="sayfaform">
@@ -124,12 +115,47 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="yeni">
-      <EntityTypeMapping TypeName="SiteDbModel.yeni">
-        <MappingFragment StoreEntitySet="yeni">
-          <ScalarProperty Name="mesaj" ColumnName="mesaj" />
-          <ScalarProperty Name="soyadi" ColumnName="soyadi" />
-          <ScalarProperty Name="adi" ColumnName="adi" />
+    <EntitySetMapping Name="Kullanici">
+      <EntityTypeMapping TypeName="SiteDbModel.Kullanici">
+        <MappingFragment StoreEntitySet="Kullanici">
+          <ScalarProperty Name="Parola" ColumnName="Parola" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dersler">
+      <EntityTypeMapping TypeName="SiteDbModel.Dersler">
+        <MappingFragment StoreEntitySet="Dersler">
+          <ScalarProperty Name="KursId" ColumnName="KursId" />
+          <ScalarProperty Name="DersVideo" ColumnName="DersVideo" />
+          <ScalarProperty Name="DersIcerik" ColumnName="DersIcerik" />
+          <ScalarProperty Name="DersAdi" ColumnName="DersAdi" />
+          <ScalarProperty Name="DersId" ColumnName="DersId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kurs">
+      <EntityTypeMapping TypeName="SiteDbModel.Kurs">
+        <MappingFragment StoreEntitySet="Kurs">
+          <ScalarProperty Name="KursKategori" ColumnName="KursKategori" />
+          <ScalarProperty Name="KursImage" ColumnName="KursImage" />
+          <ScalarProperty Name="KursUcret" ColumnName="KursUcret" />
+          <ScalarProperty Name="KursHakkinda" ColumnName="KursHakkinda" />
+          <ScalarProperty Name="KursVeren" ColumnName="KursVeren" />
+          <ScalarProperty Name="KursAdi" ColumnName="KursAdi" />
+          <ScalarProperty Name="KursId" ColumnName="KursId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="yorum">
+      <EntityTypeMapping TypeName="SiteDbModel.yorum">
+        <MappingFragment StoreEntitySet="yorum">
+          <ScalarProperty Name="y_id" ColumnName="y_id" />
+          <ScalarProperty Name="y_secenek" ColumnName="y_secenek" />
+          <ScalarProperty Name="y_icerik" ColumnName="y_icerik" />
+          <ScalarProperty Name="y_yapan" ColumnName="y_yapan" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
